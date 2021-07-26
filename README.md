@@ -1,5 +1,4 @@
-
-                            [[  csrf-magic  ]]
+# CSRF-Magic
 
 Add the following line to the top of all web-accessible PHP pages. If you have
 a common file included by everything, put it there.
@@ -20,36 +19,24 @@ bad happens. Read on if you run into problems.
                           + ------------------- +
 
 
-1.  TIPS AND TRICKS
+## 1. TIPS AND TRICKS
 
-    * If your JavaScript and AJAX is persistently getting errors, check the
-      AJAX section below on how to fix.
+* If your JavaScript and AJAX is persistently getting errors, check the AJAX section below on how to fix.
 
-    * The CSS overlay protection makes it impossible to display your website
-      in frame/iframe elements.  You can disable it with
-      csrf_conf('frame-breaker', false) in your csrf_startup() function.
+* The CSS overlay protection makes it impossible to display your website in frame/iframe elements.  You can disable it with csrf_conf('frame-breaker', false) in your csrf_startup() function.
 
-    * csrf-magic will start a session.  To disable, use csrf_conf('auto-session',
-      false) in your csrf_startup() function.
+* csrf-magic will start a session.  To disable, use csrf_conf('auto-session', false) in your csrf_startup() function.
 
-    * The default error message is a little user unfriendly.  Write your own
-      function which outputs an error message and set csrf_conf('callback',
-      'myCallbackFunction') in your csrf_startup() function.
+* The default error message is a little user unfriendly.  Write your own function which outputs an error message and set csrf_conf('callback', 'myCallbackFunction') in your csrf_startup() function.
 
-    * Make sure csrf_conf('secret', 'ABCDEFG') has something random in it.  If
-      the directory csrf-magic.php is in is writable, csrf-magic will generate
-      a secret key for you in the csrf-secret.php file.
+* Make sure csrf_conf('secret', 'ABCDEFG') has something random in it.  If the directory csrf-magic.php is in is writable, csrf-magic will generate a secret key for you in the csrf-secret.php file.
 
-    * Remember you can use auto_prepend to include csrf-magic.php on all your
-      pages.  You may want to create a stub file which you can include that
-      includes csrf-magic.php as well as performs configuration.
+* Remember you can use auto_prepend to include csrf-magic.php on all your pages.  You may want to create a stub file which you can include that includes csrf-magic.php as well as performs configuration.
 
-    * The default expiration time for tokens is two hours. If you expect your
-      users to need longer to fill out forms, be sure to enable double
-      submission when the token is invalid.
+* The default expiration time for tokens is two hours. If you expect your users to need longer to fill out forms, be sure to enable double submission when the token is invalid.
 
 
-2.  AJAX
+## 2. AJAX
 
 csrf-magic has the ability to dynamically rewrite AJAX requests which use
 XMLHttpRequest.  However, due to the invasiveness of this procedure, it is
@@ -99,7 +86,7 @@ CsrfMagic.process may also be of interest, as it takes one parameter, a
 querystring, and prepends the CSRF token to the value.
 
 
-3.  CONFIGURE
+## 3.  CONFIGURE
 
 csrf-magic has some configuration options that you can set inside the
 csrf_startup() function. They are described in csrf-magic.php, and you can
@@ -151,7 +138,7 @@ For example, this is a recommended configuration:
 Configuration gets stored in the $GLOBALS['csrf'] array.
 
 
-4.  THANKS
+## 4.  THANKS
 
 My thanks to Chris Shiflett, for unintentionally inspiring the idea, as well
 as telling me the original variant of the Bob and Mallory story,
