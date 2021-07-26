@@ -112,8 +112,9 @@ $GLOBALS['csrf']['auto-session'] = true;
  */
 $GLOBALS['csrf']['xhtml'] = true;
 // FUNCTIONS:
-// Don't edit this!
+// Don't edit these!
 $GLOBALS['csrf']['version'] = '1.0.4';
+$GLOBALS['csrf']['started'] = false;
 /**
  * Rewrites <form> on the fly to add CSRF tokens to them. This can also
  * inject our JavaScript library.
@@ -416,9 +417,16 @@ function csrf_hash($value, $time = null) {
     if (!$time) $time = time();
     return sha1(csrf_get_secret() . $value . $time) . ',' . $time;
 }
-// Load user configuration
-if (function_exists('csrf_startup')) csrf_startup();
-// Initialize our handler
-if ($GLOBALS['csrf']['rewrite'])     ob_start('csrf_ob_handler');
-// Perform check
-if (!$GLOBALS['csrf']['defer'])      csrf_check();
+
+// Adding init function to avoid composer autoloading
+function csrf_init() {
+    if (!$GLOBALS['csrf']['started']) {
+        // Load user configuration
+        if (function_exists('csrf_startup')) csrf_startup();
+        // Initialize our handler
+        if ($GLOBALS['csrf']['rewrite'])     ob_start('csrf_ob_handler');
+        // Perform check
+        if (!$GLOBALS['csrf']['defer'])      csrf_check();
+        $GLOBALS['csrf']['started'] = true;
+    }
+}

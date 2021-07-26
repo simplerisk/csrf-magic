@@ -4,6 +4,9 @@ Add the following line to the top of all web-accessible PHP pages. If you have
 a common file included by everything, put it there.
 
     include_once '/path/to/csrf-magic.php';
+    csrf_init();
+
+If using Composer, just use the autoloader and run the csrf_init function.
 
 Do it, test it, then forget about it. csrf-magic is protecting you if nothing
 bad happens. Read on if you run into problems.
